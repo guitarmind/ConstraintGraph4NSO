@@ -23,6 +23,14 @@ from transformers import glue_processors as processors
 from transformers import glue_convert_examples_to_features as convert_examples_to_features
 from transformers import DataProcessor, InputExample, InputFeatures
 
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # RTX 2080 Ti
+available_gpus = [
+    torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())
+]
+print(f"PyTorch Version: {torch.__version__}")
+print(f"Selected GPU: {available_gpus}")
+
 logger = logging.getLogger(__name__)
 
 MODEL_CLASSES = {'codebert': (
